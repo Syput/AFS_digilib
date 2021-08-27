@@ -96,7 +96,7 @@ Class User extends CI_Controller{
     }
     
     public function tambah_data(){
-        
+			date_default_timezone_set('Asia/Jakarta');
             $nim_nidn    = $this->input->post('nim_nidn',true);
             $nama      	= $this->input->post('nama',true);
             $email    	= $this->input->post('email',true);

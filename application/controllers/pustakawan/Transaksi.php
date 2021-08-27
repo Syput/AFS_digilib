@@ -101,7 +101,7 @@ Class Transaksi extends CI_Controller{
         $kode= $this->input->post('kode_t',true);
 		$pustaka= $this->input->post('pustaka',true);
 		
-        $r=$this->m_model->get_where(array('kode' => $kode ),'tb_transaksi')->row_array();
+        $r=$this->m_model->get_where(array('kode_transaksi' => $kode ),'tb_transaksi')->row_array();
 		$tgl_pinjam=$r['tgl_pinjam'];
 		
 		//menghitung selisih hari
@@ -123,12 +123,12 @@ Class Transaksi extends CI_Controller{
 				'denda'	=> $denda
 				);
 				
-		$r=$this->m_model->get_where(array('kode' => $pustaka ),'tb_buku')->row_array();
+		$r=$this->m_model->get_where(array('kode_buku' => $pustaka ),'tb_buku')->row_array();
 		$stok=$r['stok'];
 		$s=$stok + 1;
 			
-		$this->m_model->update(array('kode' =>$pustaka),array('stok' => $s), 'tb_buku');
-        $this->m_model->update(array('kode' =>$kode),$data, 'tb_transaksi');
+		$this->m_model->update(array('kode_buku' =>$pustaka),array('stok' => $s), 'tb_buku');
+        $this->m_model->update(array('kode_transaksi' =>$kode),$data, 'tb_transaksi');
        
           
     }
@@ -140,7 +140,7 @@ Class Transaksi extends CI_Controller{
         $kode= $this->input->post('kode_t',true);
 		$pustaka= $this->input->post('pustaka',true);
 		
-        $r=$this->m_model->get_where(array('kode' => $kode ),'tb_transaksi')->row_array();
+        $r=$this->m_model->get_where(array('kode_transaksi' => $kode ),'tb_transaksi')->row_array();
 		$tgl_pinjam=$r['tgl_pinjam'];
 		
 		//menghitung selisih hari
@@ -162,12 +162,12 @@ Class Transaksi extends CI_Controller{
 				'denda'	=> $denda
 				);
 				
-		$r=$this->m_model->get_where(array('kode' => $pustaka ),'tb_penelitian')->row_array();
+		$r=$this->m_model->get_where(array('kode_penelitian' => $pustaka ),'tb_penelitian')->row_array();
 		$stok=$r['stok'];
 		$s=$stok + 1;
 			
-		$this->m_model->update(array('kode' =>$pustaka),array('stok' => $s), 'tb_penelitian');
-        $this->m_model->update(array('kode' =>$kode),$data, 'tb_transaksi');
+		$this->m_model->update(array('kode_penelitian' =>$pustaka),array('stok' => $s), 'tb_penelitian');
+        $this->m_model->update(array('kode_transaksi' =>$kode),$data, 'tb_transaksi');
        
           
     }
