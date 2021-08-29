@@ -1,3 +1,4 @@
+<!-- Modal Tambah Data -->
 
   <div class="modal fade" id="modalupdate" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document">
@@ -10,51 +11,42 @@
           <form  class="formupdate" >
           <div class="pesan" style="display:none"></div>
           <div class="modal-body">
-			<div class="row">
+			<div class="row"> 
 				<div class="col-md-6">
 					<div class="form-group">
-						<label>Nim / Nidn</label>
-						<input type="text" class="form-control" name="nim_nidn" placeholder="Nim / Nidn" value="<?php echo $nim_nidn ;?>" readonly required>
+						<label>Kode Buku</label>
+						<input type="text" class="form-control" name="kode" placeholder="Kode Buku" value="<?php echo $kode; ?>" readonly>
 					</div>
 					<div class="form-group">
-						<label>Nama</label>
-						<input type="text" class="form-control" name="nama" placeholder="Nama" value="<?php echo $nama; ?>" required>
+						<label>Indeks Kata Tangkap</label>
+						<input type="text" class="form-control" name="huruf" placeholder="" value="<?php echo $abjad ;?>" required>
 					</div>
 					<div class="form-group">
-						<label>Alamat</label>
-						<textarea class="form-control" name="alamat" placeholder="Alamat" required><?php echo $alamat; ?></textarea>
+						<label>Judul</label>
+						<input type="text" class="form-control" name="judul" placeholder="Judul Buku" value="<?php echo $judul; ?>" required>
 					</div>
 					<div class="form-group">
-						<label>Email</label>
-						<input type="text" class="form-control" name="email" placeholder="Email" value="<?php echo $email; ?>" required>
-					</div>				
+						<label>File Buku</label>
+						<input type="hidden" name="file_ex" value="<?php echo $src; ?>">
+						<input type="file" class="form-control" name="userfile">
+					</div>	
 				</div>
 				<div class="col-md-6">
 					<div class="form-group">
-						<label>Kontak</label>
-						<input type="text" class="form-control" name="kontak" placeholder="Kontak" value="<?php echo $kontak; ?>" required>
-					</div>	
-					<div class="form-group">
-					<label>New Password</label>
-						<input type="password" class="form-control" name="n_password" placeholder="Kosongkan saja bila tidak akan diubah !">
-					</div>
-					 <div class="form-group">
-						<label>Level</label>
-						<select name="level" class="form-control">
-							<option value="<?php echo $level;?>"><?php echo $level;?></option>
-							<option value="Pustakawan">Pustakawan</option>
-							<option value="Anggota">Anggota</option>
-							<option value="Dosen">Dosen</option>
-							
-						</select>
+						<label>Penulis</label>
+						<input type="text" class="form-control" name="penulis" placeholder="Penulis" value="<?php echo $penulis; ?>" required>
 					</div>
 					<div class="form-group">
-						<label>Status</label>
-						<select name="status" class="form-control">
-							<option value="<?php echo $status;?>"><?php echo $status;?></option>
-							<option value="Aktif">Aktif</option>
-							<option value="Belum">Belum Aktif</option>
-						</select>
+						<label>Penerbit</label>
+						<input type="text" class="form-control" name="penerbit" placeholder="Penerbit" value="<?php echo $penerbit; ?>" required>
+					</div>
+					<div class="form-group">
+						<label>Tahun</label>
+						<input type="text" class="form-control" name="tahun" placeholder="Tahun" value="<?php echo $tahun; ?>" required>
+					</div>
+					<div class="form-group">
+						<label>Stok</label>
+						<input type="number" class="form-control" name="stok" placeholder="Stok" value="<?php echo $stok; ?>" required>
 					</div>
 				</div>
 			</div>
@@ -75,7 +67,7 @@
            $.ajax({
                
                type :   'POST',
-               url  :   '<?php echo base_url()."index.php/pustakawan/user/edit_data"?>',
+               url  :   '<?php echo base_url()."index.php/dosen/buku/edit_data"?>',
                data :   new FormData(this),
                processData:false,
 		       contentType:false,

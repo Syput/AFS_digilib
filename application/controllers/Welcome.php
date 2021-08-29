@@ -6,10 +6,12 @@ class Welcome extends CI_Controller {
 	public function index()
 	{	
 		if($this->session->userdata('nim_nidn') != '' ){
-			if($this->session->userdata('level') == 'Pustakawan' ){
+			if($this->session->userdata('level') == 'Pustakawan'){
 				redirect('index.php/pustakawan/dashboard');
-			} else {
+			} else if($this->session->userdata('level') == 'Anggota'){
 				redirect('index.php/anggota/dashboard');
+			}else{
+				redirect('index.php/dosen/dashboard');
 			}
 		} else {
 			$this->load->view('login');
@@ -43,8 +45,10 @@ class Welcome extends CI_Controller {
 			$this->session->set_userdata($datauser);
 			if($this->session->userdata('level') == 'Pustakawan'){
 				redirect('index.php/pustakawan/dashboard');
-			} else {
+			} else if($this->session->userdata('level') == 'Anggota'){
 				redirect('index.php/anggota/dashboard');
+			}else{
+				redirect('index.php/dosen/dashboard');
 			}
 		} else {
 			$this->session->set_flashdata('pesan', 'NIM / NIDN atau Password anda salah!');
@@ -77,7 +81,7 @@ class Welcome extends CI_Controller {
             $kontak     = $this->input->post('kontak',true);
             $alamat     = $this->input->post('alamat',true);  
 			$pass  		= $this->input->post('pass',true);
-			$level   	= "Anggota";
+			$level   	= $this->input->post('level',true);
 			$status 	= "Belum Aktif";
             $createDate = date('Y-m-d H:i:s');
 

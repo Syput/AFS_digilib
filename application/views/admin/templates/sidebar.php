@@ -36,18 +36,24 @@
             <i class="fa fa-recycle"></i> <span>Transaksi</span>
           </a>
         </li>
+		<li class="treeview">
+          <a href="<?php echo base_url('index.php/pustakawan/buku/pending_buku') ?>">
+				<i class="fa fa-warning">&nbsp;</i> Information<span data-toggle="collapse" href="#sub-item-1" class="icon pull-right">
+				<span class="pull-right-container">
+					<span class="label label-danger pull-right">
+						<?php
+						  $pending_buku = $this->db->query("SELECT status FROM tb_buku where status='Not Approved' ")->num_rows();
+						  $t_pending= $pending_buku;
+						  echo $t_pending . " Pending";
+						?>
+					</span>
+				</span>
+		</a>  
+        </li>
 
         <li class="treeview">
           <a href="<?php echo base_url('index.php/pustakawan/user') ?>">
             <i class="fa fa-group"></i> <span>Manajemen User</span>
-            <span class="pull-right-container">
-              <span class="label label-danger pull-right">
-                <?php
-                  $jumlahUser = $this->db->query('SELECT nim_nidn FROM tb_user')->num_rows();
-                  echo $jumlahUser . " User";
-                ?>
-              </span>
-            </span>
           </a>
         </li>
 		<li class="parent ">

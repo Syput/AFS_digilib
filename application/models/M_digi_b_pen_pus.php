@@ -1,9 +1,9 @@
 <?php
-class M_digi_b extends CI_Model
+class M_digi_b_pen_pus extends CI_Model
 {
     var $table = 'tb_buku'; //nama tabel dari database
-    var $column_order = array(null,'kode_buku','judul','penulis','penerbit','tahun','sitasi','stok',null); //Sesuaikan dengan field
-    var $column_search = array('kode_buku','judul','penulis','penerbit','tahun','sitasi','stok'); //field yang diizin untuk pencarian 
+    var $column_order = array(null,'kode_buku','judul','penulis','penerbit','tahun','stok','ket_input',null); //Sesuaikan dengan field
+    var $column_search = array('kode_buku','judul','penulis','penerbit','tahun','stok','ket_input'); //field yang diizin untuk pencarian 
     var $order = array('judul' => 'asc'); // default order 
 
     private function _get_datatables_query()
@@ -11,8 +11,9 @@ class M_digi_b extends CI_Model
        
         
          $this->db->from($this->table);
-		 $this->db->where(array('abjad' => $this->session->userdata('abjad'),'status' => 'Approved'));
-		 $i = 0;
+         $this->db->where(array('status' => 'Not Approved'));
+
+        $i = 0;
 
         foreach ($this->column_search as $item) // looping awal
         {

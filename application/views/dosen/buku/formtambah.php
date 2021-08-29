@@ -11,44 +11,44 @@
           <form  class="formtambah" >
           <div class="pesan" style="display:none"></div>
           <div class="modal-body">
-			<div class="row">
+			<div class="row"> 
 				<div class="col-md-6">
 					<div class="form-group">
-						<label>Nim / Nidn</label>
-						<input type="text" class="form-control" name="nim_nidn" placeholder="Nim / Nidn" required>
+						<label>Kode Buku</label>
+						<input type="text" class="form-control" name="kode" placeholder="Kode Buku" value="<?php echo $this->session->userdata('kodeb');?>" readonly>
 					</div>
 					<div class="form-group">
-						<label>Nama</label>
-						<input type="text" class="form-control" name="nama" placeholder="Nama" required>
+						<label>Indeks Kata Tangkap</label>
+						<input type="text" class="form-control" name="huruf" placeholder="" value="<?php echo $this->session->userdata('abjad');?>"readonly>
 					</div>
-					 <div class="form-group">
-						<label>Alamat</label>
-						  <textarea class="form-control" name="alamat" placeholder="alamat" required></textarea>
-					</div>		
+					<div class="form-group">
+						<label>Judul</label>
+						<input type="text" class="form-control" name="judul" placeholder="Judul Buku" required>
+					</div>
+					<div class="form-group">
+						<label>File Buku</label>
+						<input type="file" class="form-control" name="userfile">
+					</div>
 				</div>
 				<div class="col-md-6">
 					<div class="form-group">
-						<label>e-mail</label>
-						<input type="text" class="form-control" name="email" placeholder="E-mail" required>
+						<label>Penulis</label>
+						<input type="text" class="form-control" name="penulis" placeholder="Penulis" required>
 					</div>
 					<div class="form-group">
-						<label>Kontak</label>
-						<input type="text" class="form-control" name="kontak" placeholder="Kontak" required>
+						<label>Penerbit</label>
+						<input type="text" class="form-control" name="penerbit" placeholder="Penerbit" required>
 					</div>
 					<div class="form-group">
-						<label>Password</label>
-						<input type="password" class="form-control" name="password" placeholder="Password" required>
-					</div>				
-				</div>
-			</div>       
-            <div class="form-group">
-                <label>Level</label>
-                <select class="form-control" name="level">
-                    <option value="Pustakawan">Pustakawan</option>
-                    <option value="Anggota">Anggota</option>
-					<option value="Dosen">Dosen</option>
-                </select>
-            </div>              
+						<label>Tahun</label>
+						<input type="text" class="form-control" name="tahun" placeholder="Tahun" required>
+					</div>
+					<div class="form-group">
+						<label>Stok</label>
+						<input type="number" class="form-control" name="stok" placeholder="Stok" required>
+					</div>
+				</div>	
+			</div>
           </div>
           <div class="modal-footer">
             <button type="reset" class="btn btn-danger"><div class="fa fa-trash"></div> Reset</button>
@@ -66,7 +66,7 @@
            $.ajax({
                
                type :   'POST',
-               url  :   '<?php echo base_url()."index.php/pustakawan/user/tambah_data"?>',
+               url  :   '<?php echo base_url()."index.php/dosen/buku/tambah_data"?>',
                data :   new FormData(this),
                processData:false,
 		       contentType:false,
@@ -75,11 +75,7 @@
                success: function(data){
                  
                 console.log(data);
-               },
-			   error: function(data){
-				    swal("Gagal menambah data!","Data dengan NIM / NIDN tersebut sudah ada", "error");
-			   }
-			   
+               }
               
            });
           

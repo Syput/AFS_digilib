@@ -9,7 +9,7 @@ class Penelitian extends CI_Controller {
         if(!$this->session->userdata('nim_nidn')){
             redirect('index.php/welcome');
         } else {
-            if($this->session->userdata('level') != 'Anggota'){
+            if($this->session->userdata('level') != 'Dosen'){
                 redirect('index.php/pustakawan/dashboard');
             }
         }
@@ -17,10 +17,10 @@ class Penelitian extends CI_Controller {
 	
     public function index(){
         $data['title'] = 'Alphabetical Filing System Method';
-        $this->load->view('anggota/templates/header', $data);
-        $this->load->view('anggota/templates/sidebar');
-        $this->load->view('anggota/penelitian/list_penelitian', $data);
-        $this->load->view('anggota/templates/footer');
+        $this->load->view('dosen/templates/header', $data);
+        $this->load->view('dosen/templates/sidebar');
+        $this->load->view('dosen/penelitian/list_penelitian', $data);
+        $this->load->view('dosen/templates/footer');
         
     }
     
@@ -30,10 +30,10 @@ class Penelitian extends CI_Controller {
         $abjad = $this->uri->segment(4);
         $this->session->set_userdata('abjad', $abjad); // membuat session abjad
         //$data['riwayat'] = $this->m_model->get('tb_riwayat')->result();    
-        $this->load->view('anggota/templates/header', $data);
-        $this->load->view('anggota/templates/sidebar');
-        $this->load->view('anggota/penelitian/penelitian');
-        $this->load->view('anggota/templates/footer');
+        $this->load->view('dosen/templates/header', $data);
+        $this->load->view('dosen/templates/sidebar');
+        $this->load->view('dosen/penelitian/penelitian');
+        $this->load->view('dosen/templates/footer');
     }
     
     public function ambilData(){
@@ -94,13 +94,9 @@ class Penelitian extends CI_Controller {
                 
             $btn_delete="<button type=\"button\" class=\"btn btn-danger\" style=\"margin:1px;\" onclick=\"hapus('".$field->kode_penelitian."')\"> <div class=\"fa fa-trash\"></div></button>";
                 
-			if($this->session->userdata('level')=='Pustakawan'){
-				//$tombol=$btn_transaksi.' '.$btn_update.' '.$btn_delete;
-				$tombol=$btn_transaksi.' '.$btn_update.' '.$btn_delete.' '.$btn_read.' '.$btn_cite;
-			}else{
+			
 				$tombol=$btn_read.' '.$btn_cite;
-			}
-                
+				
                 $no++;
                 $row = array();
                
@@ -138,7 +134,7 @@ class Penelitian extends CI_Controller {
     
     }
     
-	
+   
 	public function baca($judul,$kode){
 			date_default_timezone_set('Asia/Jakarta');
 			$tgl_baca = date('Y-m-d');
@@ -187,17 +183,19 @@ class Penelitian extends CI_Controller {
        
           
     }
-		public function info(){
+
+	
+	public function info(){
 		$nim_nidn=$this->uri->segment(4);
 		$data['info']=$this->m_model->get_where(array('kode_penelitian' => $nim_nidn),'tb_penelitian')->row_array();
 		$data['title'] = 'Informasi';
-        $this->load->view('anggota/templates/header', $data);
-        $this->load->view('anggota/templates/sidebar');
-        $this->load->view('anggota/penelitian/info', $data);
-        $this->load->view('anggota/templates/footer');
+        $this->load->view('dosen/templates/header', $data);
+        $this->load->view('dosen/templates/sidebar');
+        $this->load->view('dosen/penelitian/info', $data);
+        $this->load->view('dosen/templates/footer');
 
 	}
-
-    
+   
+       
     
 }

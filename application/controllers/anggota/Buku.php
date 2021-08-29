@@ -191,7 +191,15 @@ class Buku extends CI_Controller {
     }
 	
     
-    
+    public function info(){
+		$nim_nidn=$this->uri->segment(4);
+		$data['info']=$this->m_model->get_where(array('kode_buku' => $nim_nidn),'tb_buku')->row_array();
+		$data['title'] = 'Informasi';
+        $this->load->view('anggota/templates/header', $data);
+        $this->load->view('anggota/templates/sidebar');
+        $this->load->view('anggota/buku/info', $data);
+        $this->load->view('anggota/templates/footer');
+	}
   
  
 	

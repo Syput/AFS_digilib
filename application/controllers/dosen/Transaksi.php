@@ -8,18 +8,18 @@ Class Transaksi extends CI_Controller{
         if(!$this->session->userdata('nim_nidn')){
             redirect('index.php/welcome');
         } else {
-            if($this->session->userdata('level') != 'Anggota'){
+            if($this->session->userdata('level') != 'Dosen'){
                 redirect('index.php/pustakawan/dashboard');
             }
         }
     }
     
-     public function index(){
+    public function index(){
         $data['title'] = 'Alphabetical Filing System Method';
-        $this->load->view('anggota/templates/header', $data);
-        $this->load->view('anggota/templates/sidebar');
-        $this->load->view('anggota/transaksi/transaksi', $data);
-        $this->load->view('anggota/templates/footer');
+        $this->load->view('dosen/templates/header', $data);
+        $this->load->view('dosen/templates/sidebar');
+        $this->load->view('dosen/transaksi/transaksi', $data);
+        $this->load->view('dosen/templates/footer');
         
     }
     
@@ -51,13 +51,11 @@ Class Transaksi extends CI_Controller{
                 $label="<span class=\"label label-danger pull-center\">".$field->denda."</span>";
                 }
 				
-				//$link_A	="<a href=".base_url()."index.php/Pustakawan/user/info/".$field->peminjam.">".$field->peminjam."</a>";
-				
 				$huruf= substr($field->pustaka,0,3);
 				if( $huruf=='RSC'){
-					$link_B	="<a href=".base_url()."index.php/anggota/penelitian/info/".$field->pustaka.">".$field->pustaka."</a>";
+					$link_B	="<a href=".base_url()."index.php/dosen/penelitian/info/".$field->pustaka.">".$field->pustaka."</a>";
 				}else{
-					$link_B	="<a href=".base_url()."index.php/anggota/buku/info/".$field->pustaka.">".$field->pustaka."</a>";	
+					$link_B	="<a href=".base_url()."index.php/dosen/buku/info/".$field->pustaka.">".$field->pustaka."</a>";	
 				}
 				
 				
@@ -75,12 +73,7 @@ Class Transaksi extends CI_Controller{
                 $row[] =$field->tgl_kembali;
                 $row[] =$field->jumlah_hari.' Hari';
                 $row[] =$label;
-				
-				if($this->session->userdata('level')!='Pustakawan') {
-						$row[] ="-";
-					}else{
-						$row[] =$btn_kembali;
-					}
+                $row[] =$btn_kembali;
                 
                 $data[] = $row;
             }
@@ -98,7 +91,6 @@ Class Transaksi extends CI_Controller{
         }
 
     
-    }	
-
+    }
 }
 ?>

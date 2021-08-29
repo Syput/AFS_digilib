@@ -38,6 +38,13 @@
 						<label>Alamat</label>
 						<textarea type="text" class="form-control" name="alamat" id="alamat" required></textarea>
 					</div>
+					<div class="form-group">
+						<label>Level</label>
+						<select name="level" class="form-control" id="level" required>
+							<option value="Anggota">Anggota</option>
+							<option value="Dosen">Dosen</option>
+						</select>
+					</div>
                    <div class="form-group">
                           <label>Pasword</label>
                           <input type="password" class="form-control" name="pass" id="pass" required>
@@ -68,6 +75,7 @@
 	   var email 	= $('#email').val();
 	   var kontak 	= $('#kontak').val();
 	   var alamat 	= $('#alamat').val();
+	   var level 	= $('#level').val();
        var pass		= $('#pass').val();
 	   var cpass	=$('#cpass').val();
 	   
@@ -85,6 +93,7 @@
 									email 	: email,
 									kontak 	: kontak,
 									alamat 	: alamat,
+									level	: level,
 									pass	: pass
 								 },
 					  // datatype: "json",

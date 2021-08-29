@@ -11,7 +11,7 @@ class M_digi_p extends CI_Model
        
         
          $this->db->from($this->table);
-         $this->db->where(array('abjad' => $this->session->userdata('abjad') ));
+         $this->db->where(array('abjad' => $this->session->userdata('abjad')));
 
         $i = 0;
 

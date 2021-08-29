@@ -66,13 +66,13 @@ class M_model extends CI_Model {
 	
 	public function getMaxPembaca()
     {
-        $query = $this->db->query("SELECT pembaca,pustaka,COUNT(pembaca) as jumlah from tb_pembaca GROUP BY pembaca LIMIT 20");
+        $query = $this->db->query("SELECT pembaca,pustaka,COUNT(pembaca) as jumlah from tb_pembaca GROUP BY pembaca ORDER BY jumlah DESC LIMIT 20");
         return $query;
     }
 	
 	public function getMaxBacaan()
     {
-        $query = $this->db->query("SELECT pembaca,pustaka,COUNT(pustaka) as jumlah from tb_pembaca GROUP BY pustaka LIMIT 20");
+        $query = $this->db->query("SELECT pembaca,pustaka,COUNT(pustaka) as jumlah from tb_pembaca GROUP BY pustaka ORDER BY jumlah DESC LIMIT 20");
         return $query;
     }
 

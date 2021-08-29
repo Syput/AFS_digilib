@@ -95,8 +95,8 @@ class Penelitian extends CI_Controller {
             $btn_delete="<button type=\"button\" class=\"btn btn-danger\" style=\"margin:1px;\" onclick=\"hapus('".$field->kode_penelitian."')\"> <div class=\"fa fa-trash\"></div></button>";
                 
 			if($this->session->userdata('level')=='Pustakawan'){
-				$tombol=$btn_transaksi.' '.$btn_update.' '.$btn_delete;
-				//$tombol=$btn_transaksi.' '.$btn_update.' '.$btn_delete.' '.$btn_read.' '.$btn_cite;
+				//$tombol=$btn_transaksi.' '.$btn_update.' '.$btn_delete;
+				$tombol=$btn_read.' '.$btn_cite.' '.$btn_transaksi.' '.$btn_update.' '.$btn_delete;
 			}else{
 				$tombol=$btn_read.' '.$btn_cite;
 			}

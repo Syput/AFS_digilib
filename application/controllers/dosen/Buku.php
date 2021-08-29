@@ -10,8 +10,8 @@ class Buku extends CI_Controller {
         if(!$this->session->userdata('nim_nidn')){
             redirect('index.php/welcome');
         } else {
-            if($this->session->userdata('level') != 'Pustakawan'){
-                redirect('index.php/anggota/dashboard');
+            if($this->session->userdata('level') != 'Dosen'){
+                redirect('index.php/pustakawan/dashboard');
             }
         }
     }
@@ -19,10 +19,10 @@ class Buku extends CI_Controller {
     
     public function index(){	
         $data['title'] = 'Alphabetical Filing System Method';
-        $this->load->view('admin/templates/header', $data);
-        $this->load->view('admin/templates/sidebar');
-        $this->load->view('admin/buku/list_buku', $data);
-        $this->load->view('admin/templates/footer');
+        $this->load->view('dosen/templates/header', $data);
+        $this->load->view('dosen/templates/sidebar');
+        $this->load->view('dosen/buku/list_buku', $data);
+        $this->load->view('dosen/templates/footer');
         
     }
 	
@@ -32,10 +32,10 @@ class Buku extends CI_Controller {
         $abjad = $this->uri->segment(4);
         $this->session->set_userdata('abjad', $abjad); // membuat session abjad
         //$data['riwayat'] = $this->m_model->get('tb_riwayat')->result();    
-        $this->load->view('admin/templates/header', $data);
-        $this->load->view('admin/templates/sidebar');
-        $this->load->view('admin/buku/buku');
-        $this->load->view('admin/templates/footer');
+        $this->load->view('dosen/templates/header', $data);
+        $this->load->view('dosen/templates/sidebar');
+        $this->load->view('dosen/buku/buku');
+        $this->load->view('dosen/templates/footer');
     }
     
     public function ambilData(){
@@ -99,13 +99,12 @@ class Buku extends CI_Controller {
                 
             $btn_delete="<button type=\"button\" class=\"btn btn-danger\" style=\"margin:1px;\" onclick=\"hapus('".$field->kode_buku."')\"> <div class=\"fa fa-trash\"></div></button>";
             
-			if($this->session->userdata('level')=='Pustakawan'){
-				//$tombol=$btn_transaksi.' '.$btn_update.' '.$btn_delete;
-				$tombol=$btn_read.' '.$btn_cite.' '.$btn_transaksi.' '.$btn_update.' '.$btn_delete;
-			}else{
-				$tombol=$btn_read.' '.$btn_cite;
-			}
-			
+				if($field->ket_input == $this->session->userdata('nim_nidn')){
+					$tombol=$btn_read.' '.$btn_cite.' '.$btn_update.' '.$btn_delete;
+				}else{
+					$tombol=$btn_read.' '.$btn_cite;
+				}
+				
                 $no++;
                 $row = array();
                
@@ -117,7 +116,11 @@ class Buku extends CI_Controller {
                 $row[] =$field->tahun;
                 $row[] = "Dirujuk ".$field->sitasi." kali";
                 $row[] =$field->stok;
-                $row[] =$tombol;
+                if($this->session->userdata('status') != 'Aktif'){
+					$row[] ='-';
+				}else{
+					$row[]=$tombol;
+				}
                 
                 $data[] = $row;
             }
@@ -140,7 +143,7 @@ class Buku extends CI_Controller {
     public function formtambah(){
         if($this->input->is_ajax_request()== true){
             $msg =[
-                'sukses' => $this->load->view('admin/buku/formtambah','',true)
+                'sukses' => $this->load->view('dosen/buku/formtambah','',true)
             ];
             
             echo json_encode($msg);
@@ -158,7 +161,7 @@ class Buku extends CI_Controller {
             $penerbit   = $this->input->post('penerbit',true);
             $tahun      = $this->input->post('tahun',true);  
             $stok       = $this->input->post('stok',true);
-			$status		= "Approved";
+			$status		= "Not Approved";
 			$ket_input	= $this->session->userdata('nim_nidn');
             $createDate = date('Y-m-d H:i:s');
 
@@ -197,8 +200,8 @@ class Buku extends CI_Controller {
                 'createDate'    => $createDate,
                 'src'           => $upload_data['file_name'],
                 'stok'          => $stok,
-				'status'		=> $status,
-				'ket_input'		=> $ket_input
+				'status'		=>$status,
+				'ket_input'		=>$ket_input
             );  
 			}else{
 				 $data = array(
@@ -212,7 +215,7 @@ class Buku extends CI_Controller {
                 'src'           => '-',
                 'stok'          => $stok,
 				'status'		=> $status,
-				'ket_input'		=> $ket_input
+				'ket_input'		=>$ket_input
             );  
 			}
 
@@ -246,7 +249,7 @@ class Buku extends CI_Controller {
             
             
             $msg =[
-                'sukses' => $this->load->view('admin/buku/formupdate',$data,true)
+                'sukses' => $this->load->view('dosen/buku/formupdate',$data,true)
             ];
             
             echo json_encode($msg);
@@ -376,7 +379,7 @@ class Buku extends CI_Controller {
             
             
             $msg =[
-                'sukses' => $this->load->view('admin/buku/formtransaksi',$data,true)
+                'sukses' => $this->load->view('dosen/buku/formtransaksi',$data,true)
             ];
             
             echo json_encode($msg);
@@ -472,17 +475,17 @@ class Buku extends CI_Controller {
        $data['buku'] = $this->m_model->get_where($where,'tb_buku')->result();
        $data['title'] = 'Cetak Koleksi Buku';
 
-       $this->load->view('admin/buku/laporan_All', $data);
+       $this->load->view('dosen/buku/laporan_All', $data);
     }
 	
-		public function info(){
+	public function info(){
 		$nim_nidn=$this->uri->segment(4);
 		$data['info']=$this->m_model->get_where(array('kode_buku' => $nim_nidn),'tb_buku')->row_array();
 		$data['title'] = 'Informasi';
-        $this->load->view('admin/templates/header', $data);
-        $this->load->view('admin/templates/sidebar');
-        $this->load->view('admin/buku/info', $data);
-        $this->load->view('admin/templates/footer');
+        $this->load->view('dosen/templates/header', $data);
+        $this->load->view('dosen/templates/sidebar');
+        $this->load->view('dosen/buku/info', $data);
+        $this->load->view('dosen/templates/footer');
 	}
 	
 	public function pending_buku(){
@@ -490,23 +493,21 @@ class Buku extends CI_Controller {
         $abjad = $this->uri->segment(4);
         $this->session->set_userdata('abjad', $abjad); // membuat session abjad
         //$data['riwayat'] = $this->m_model->get('tb_riwayat')->result();    
-        $this->load->view('admin/templates/header', $data);
-        $this->load->view('admin/templates/sidebar');
-        $this->load->view('admin/information/buku');
-        $this->load->view('admin/templates/footer');
+        $this->load->view('dosen/templates/header', $data);
+        $this->load->view('dosen/templates/sidebar');
+        $this->load->view('dosen/information/buku');
+        $this->load->view('dosen/templates/footer');
 
 	}
 	
 	public function tampil_pending(){
 			if ($this->input->is_ajax_request() == true) {
-            $this->load->model('M_digi_b_pen_pus', 'digi');
+            $this->load->model('M_digi_b_pen', 'digi');
             $list = $this->digi->get_datatables();
             $data = array();
             $no = $_POST['start'];
             foreach ($list as $field) {
-				
-			$btn_aktif="<button type=\"button\" class=\"btn btn-info\" style=\"margin:1px;\" onclick=\"approve('".$field->kode_buku."')\"><div class=\"fa fa-check\"></div></button>";
-			$link	="<a href=".base_url()."index.php/Pustakawan/user/info/".$field->ket_input.">".$field->ket_input."</a>";	
+            
                 $no++;
                 $row = array();
                
@@ -517,8 +518,6 @@ class Buku extends CI_Controller {
                 $row[] =$field->penerbit;
                 $row[] =$field->tahun;
                 $row[] =$field->stok;
-				$row[] =$link;
-				$row[] =$btn_aktif;
          
                 $data[] = $row;
             }
@@ -535,14 +534,6 @@ class Buku extends CI_Controller {
             exit('Maaf data tidak bisa ditampilkan');
         }
 	}
-	
-	 public function approve_buku(){
-        $kode= $this->input->post('kode_b',true);
-        $status="Approved";
-        $this->m_model->update(array('kode_buku' =>$kode),array('status' => $status), 'tb_buku');
-       
-          
-    }
 
     
   
