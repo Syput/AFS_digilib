@@ -506,6 +506,9 @@ class Buku extends CI_Controller {
             foreach ($list as $field) {
 				
 			$btn_aktif="<button type=\"button\" class=\"btn btn-info\" style=\"margin:1px;\" onclick=\"approve('".$field->kode_buku."')\"><div class=\"fa fa-check\"></div></button>";
+			$btn_delete="<button type=\"button\" class=\"btn btn-danger\" style=\"margin:1px;\" onclick=\"hapus('".$field->kode_buku."')\"> <div class=\"fa fa-times\"></div></button>";
+			$tombol=$btn_aktif.' '.$btn_delete;
+			
 			$link	="<a href=".base_url()."index.php/Pustakawan/user/info/".$field->ket_input.">".$field->ket_input."</a>";	
                 $no++;
                 $row = array();
@@ -518,7 +521,7 @@ class Buku extends CI_Controller {
                 $row[] =$field->tahun;
                 $row[] =$field->stok;
 				$row[] =$link;
-				$row[] =$btn_aktif;
+				$row[] =$tombol;
          
                 $data[] = $row;
             }

@@ -59,38 +59,32 @@
                 <tr>
                     <th width="5px">No</th>
                     <th>Kode</th>
-					<th>Abjad</th>
-                    <th>Judul</th>
-                    <th>Penulis</th>
-                    <th>Penerbit</th>
-                    <th>Tahun</th>
-					<th>Keterangan</th>
-					<th>Sitasi</th>
-					<th>Stok</th>
-                    <th>createDate</th>
-					<th>updateDate</th>
+					<th>Peminjam</th>
+                    <th>Pustaka</th>
+                    <th>jenis</th>
+                    <th>Tanggal Pinjam</th>
+                    <th>Tanggal Kembali</th>
+                    <th>Jumlah Hari</th>
+                    <th>Denda</th>
                     
                 </tr>
             </thead>
             <tbody>
                 <?php
                     $no = 1;
-                    foreach ($penelitian as $b) {
+                    foreach ($transaksi as $b) {
                 ?>
                     <tr>
                         <td><?php echo $no++; ?></td>
-                        <td><?php echo $b->kode; ?></td>
-						<td><?php echo $b->abjad; ?></td>
-                        <td><?php echo $b->judul; ?></td>
-                        <td><?php echo $b->penulis; ?></td>
-                        <td><?php echo $b->penerbit; ?></td>
-                        <td><?php echo $b->tahun; ?></td>
-						<td><?php echo $b->keterangan; ?></td>
-						<td><?php echo $b->sitasi; ?></td>
-						<td><?php echo $b->stok; ?></td>
-						<td><?php echo $b->createDate; ?></td>
-						<td><?php echo $b->updateDate; ?></td>
-                    </tr>
+                        <td><?php echo $b->kode_transaksi; ?></td>
+						<td><?php echo $b->peminjam; ?></td>
+                        <td><?php echo $b->pustaka; ?></td>
+                        <td><?php echo $b->jenis; ?></td>
+                        <td><?php echo $b->tgl_pinjam; ?></td>
+                        <td><?php echo $b->tgl_kembali; ?></td>
+						<td><?php echo $b->jumlah_hari; ?></td>
+						<td><?php echo $b->denda; ?></td>
+					</tr>
                 <?php } ?>
             </tbody>
         </table>

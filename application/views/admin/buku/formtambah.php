@@ -66,7 +66,7 @@
            $.ajax({
                
                type :   'POST',
-               url  :   '<?php echo base_url()."index.php/pustakawan/buku/tambah_data"?>',
+               url  :   '<?php echo base_url()."index.php/pustakawan/transaksi/transaksi_report"?>',
                data :   new FormData(this),
                processData:false,
 		       contentType:false,

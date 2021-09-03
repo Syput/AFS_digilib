@@ -130,6 +130,37 @@ function tampil(){
 		});
 		
 	}
+	
+//----function delete
+    function hapus(kode){
+      swal({
+              title: "Anda yakin ingin me-reject data?",
+              text: "Data yang sudah di-reject tidak akan ditampilkan lagi!",
+              icon: "warning",
+              buttons: true,
+              dangerMode: true,
+            })
+            .then((willDelete) => {
+              if (willDelete) {
+                  $.ajax({
+                    type:'POST',
+                    url: '<?php echo base_url()."index.php/pustakawan/buku/delete_data"?>',
+                    data: {kode_b:kode},
+                    dataType:'json',
+                    success:function(){
+                                swal("Data berhasil di-reject!", {
+                                      icon: "success",
+                                    });
+                        }
+                    });
+             swal("Data berhasil di-reject!", {icon: "success", });
+             tampil();
+                
+              } else {
+                swal("Data berhasil di-reject!");
+              }
+		});
+    }
     
     
 </script>

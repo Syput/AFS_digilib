@@ -24,16 +24,12 @@
         <!-- Alert -->
         <div class="flash-data" data-flashdata="<?php echo $this->session->flashdata('pesan') ?>"></div>
 
-        <!-- Tombol Tambah Data
-        <div type="button" class="btn btn-danger"  id="tomboltambah" onclick="insert()">
-            <div class="fa fa-plus"></div> Tambah Data
-        </div>-->
+        
+        <div type="button" class="btn btn-primary"  id="tombolreport" onclick="report()">
+            <div class="fa fa-print"> Cetak Data</div> 
+        </div>
 
-        <!-- Tombol Cetak Data 
-        <a href="<?php echo base_url('index.php/pustakawan/buku/printKoleksiBuku') ?>" class="btn btn-primary">
-            <div class="fa fa-print"></div> Cetak Data
-        </a>-->
-
+  
         <!-- Tabel Data -->
         <div class="box box-danger" style="margin-top: 15px">
             <div class="box-body">
@@ -178,6 +174,22 @@ function tampil(){
 		});
 		
 	}
+	
+	function report(){
+        $.ajax({
+            url: '<?php echo base_url()."index.php/pustakawan/transaksi/formreport"?>',
+            dataType: 'json',
+            success : function(response){
+                if(response.sukses){
+                    $('.viewmodal').html(response.sukses).show();
+                    $('#modalreport').modal('show');
+               
+                }
+         
+            }
+                              
+            });                                                  
+}
 	
 	
         

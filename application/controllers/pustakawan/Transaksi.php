@@ -33,7 +33,7 @@ Class Transaksi extends CI_Controller{
             foreach ($list as $field) {
             
 			if(!empty($field->denda)){
-				$btn_kembali="<button type=\"button\" class=\"btn btn-info\" style=\"margin:1px;\" onclick=\"transaksi('".$field->kode_transaksi."','".$field->pustaka."')\" disabled><div class=\"fa fa-recycle\"></div></button>";
+				$btn_kembali="-";
 			}else{
 				if($field->jenis == "Buku"){
 					$btn_kembali="<button type=\"button\" class=\"btn btn-info\" style=\"margin:1px;\" onclick=\"transaksi_b('".$field->kode_transaksi."','".$field->pustaka."')\"><div class=\"fa fa-recycle\"></div></button>";
@@ -171,6 +171,33 @@ Class Transaksi extends CI_Controller{
        
           
     }
+	
+	  public function formreport(){
+        if($this->input->is_ajax_request()== true){
+            $msg =[
+                'sukses' => $this->load->view('admin/transaksi/formreport','',true)
+            ];
+            
+            echo json_encode($msg);
+            
+        }
+    }
+	
+		public function report_transaksi(){
+			$awal  = date($this->input->post('awal'));
+			$akhir = date($this->input->post('akhir'));
+			
+		    
+			$query_str="SELECT * FROM tb_transaksi where tgl_pinjam BETWEEN ? AND ?";
+		    $result=$this->db->query($query_str,array($awal,$akhir));
+			$data['transaksi'] = $result->result();
+			$data['title'] = 'Cetak Transaksi';
+
+		    $this->load->view('admin/transaksi/laporan_All', $data);
+			
+			
+			
+		}
 	
 
     
